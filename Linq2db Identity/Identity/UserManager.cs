@@ -49,7 +49,6 @@ namespace Linq2db_Identity.Identity
 
         public override async System.Threading.Tasks.Task<User> FindAsync(string userName, string password)
         {
-            Debug.WriteLine("UserManager: FindAsync");
             var user = await this.Store.FindByNameAsync(userName);
 
             if (user != null)
@@ -65,7 +64,6 @@ namespace Linq2db_Identity.Identity
 
         public override async Task<IdentityResult> ConfirmEmailAsync(string userId, string token)
         {
-            Debug.WriteLine("UserManager: ConfirmEmailAsync");
             var user = await FindByIdAsync(userId);
             var store = Store as IUserEmailStore<User>;
             if (user == null)
@@ -82,7 +80,6 @@ namespace Linq2db_Identity.Identity
 
         public override async Task<IList<string>> GetRolesAsync(string userId)
         {
-            Debug.WriteLine("UserManager: GetRolesAsync");
             var stuff = await  base.GetRolesAsync(userId);
             return stuff;
         }
@@ -91,20 +88,16 @@ namespace Linq2db_Identity.Identity
 
         public override Task<IList<Claim>> GetClaimsAsync(string userId)
         {
-            Debug.WriteLine("UserManager: GetClaimsAsync");
             return base.GetClaimsAsync(userId);
         }
 
         public override Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login)
         {
-            Debug.WriteLine("UserManager: AddLoginAsync");
             return base.AddLoginAsync(userId, login);
         }
 
         public override async Task<ClaimsIdentity> CreateIdentityAsync(User user, string authenticationType)
         {
-
-            Debug.WriteLine("UserManager: CreateIdentityAsync");
 
             // TODO: Create claims based on the user dynamically
 
@@ -116,27 +109,17 @@ namespace Linq2db_Identity.Identity
             User user, 
             string newPassword)
         {
-            Debug.WriteLine("UserManager: UpdatePassword");
             return base.UpdatePassword(passwordStore, user, newPassword);
         }
 
         public override Task<bool> VerifyUserTokenAsync(string userId, string purpose, string token)
         {
-            Debug.WriteLine("UserManager: VerifyUserTokenAsync");
             return base.VerifyUserTokenAsync(userId, purpose, token);
         }
 
         public override Task SendEmailAsync(string userId, string subject, string body)
         {
-            Debug.WriteLine("UserManager: SendEmailAsync");
             return base.SendEmailAsync(userId, subject, body);
-        }
-
-        public async Task AddCreditAsync(string userId, int credits)
-        {
-            var user = await this.Store.FindByIdAsync(userId);
-            user.Credits += credits;
-            await this.Store.UpdateAsync(user);
         }
     }
 }

@@ -33,8 +33,6 @@ namespace Linq2db_Identity.Models
         public bool LockoutEnabled { get; set; } // tinyint(1)
         [Column, NotNull]
         public string EmailConfirmationToken { get; set; } // varchar(36)
-        [Column, NotNull]
-        public int Credits { get; set; } // int(11)
 
         #region Associations
 
